@@ -13,7 +13,24 @@ const schema = new Schema({
         type: String,
         required: true,
     },
+    courses: [
+        {
+            type: String,
+            ref: 'Course'
+        }
+    ]
+},
+{
+    timestamps:true,
+    toJSON: {
+        virtuals: true
+    }
 })
+
+schema.virtual('full name').get(function(){
+    return `${this.firstName} ${this.lastName}`
+})
+//这里callback function必须用regular function，因为要调用this
 
 const StudentModel = model('Student', schema)
 
