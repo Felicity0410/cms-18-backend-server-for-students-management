@@ -33,7 +33,8 @@ const updateStudentById = async (req, res) => {
     const student = await StudentModel.findByIdAndUpdate(
         id, 
         {firstName, lastName, email}, 
-        {new:true}).exec()
+        {new:true}) //runValidators: true
+        .exec()
 
     //const student = await StudentModel.findById(id).exec()
     if(!student) {

@@ -10,7 +10,9 @@ module.exports = model('Course', new Schema({
     },
     name: {
         type: String,
+        minlength: 5,
         required: true,
+        unique: true,
         // select:false //不会返回
     },
     description: {

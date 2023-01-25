@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const Joi = require('joi')
 
 const schema = new Schema({
     firstName: {
@@ -12,8 +13,29 @@ const schema = new Schema({
     email: {
         type: String,
         required: true,
+        validate: [
+            {
+            validator: (email) => {
+                // const validation = Joi.string().email().validate(email)
+                // const { error } = validation
+                // if(error) {
+                //     return false
+                // }
+                // return true
+
+                return !Joi.string().email().validate(email).error
+            },
+            msg:'Invalid email format'
+        }
+    ]
     },
     courses: [
+        {
+            type: String,
+            ref: 'Course'
+        }
+    ],
+    likeCourses: [
         {
             type: String,
             ref: 'Course'
