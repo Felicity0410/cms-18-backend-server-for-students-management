@@ -1,27 +1,40 @@
 const Joi = require('joi')
+const DocumentNotFoundError = require('../../errors/documentNotFoundError')
 const CourseModel = require('../models/course')
 
-const getAllCourses = async (req, res) => {
-    const courses = await CourseModel.find().exec()
-    res.json(courses)
+// function tryCatch(routeHandler) {
+//     return async (req, res, next) => {
+//         try {
+//             await routeHandler(req, res, next)
+//         } catch (error) {
+//             next(error)
+//         }
+//     }
+// }
+
+const getAllCourses = async (req, res, next) => {  
+        const courses = await CourseModel.find().exec()
+        res.json(courses)
+    
 }
 
-const getCourseById = async (req, res) => {
-    const { id } = req.params
-    const course = await CourseModel.findById(id).exec()
-    if(!course) {
-        res.status(404).json({error: 'course not found'})
-        return
-    }
-    res.json(course)
+const getCourseById = async (req, res, next) => {
+
+        const { id } = req.params
+        const course = await CourseModel.findById(id).exec()
+        if(!course) {
+            next(new DocumentNotFoundError('Course', id))
+            return
+        }
+        res.json(course)
 }
 
 const addCourse = async (req, res) => {
     
     //data validation，检查code有没有重复
     const schema = Joi.object({
-        name: Joi.string().min(2).max(10).message('Invalid name format').required(),
-        code: Joi.string.regex(/^[a-zA-Z]+[0-9]+$/).message('Invalid code format').required(),
+        name: Joi.string().min(2).message('Invalid name format').required(),
+        code: Joi.string().regex(/^[a-zA-Z]+[0-9]+$/).message('Invalid code format').required(),
         description: Joi.string()
     })
     const {code, name, description} = await schema.validateAsync(req.body, {allowUnknown: true, stripUnknown: true})
@@ -39,8 +52,8 @@ const addCourse = async (req, res) => {
 const updateCourseById = async (req, res) => {
     const { id } = req.params
     const schema = Joi.object({
-        name: Joi.string().min(2).max(10).required(),
-        description: Joi.string
+        name: Joi.string().min(2).required(),
+        description: Joi.string()
     })
 
     const {name, description} = await schema.validateAsync(req.body, {allowUnknown: true, stripUnknown: true})

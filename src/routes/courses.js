@@ -1,5 +1,6 @@
 const { Router } = require('express')
-const { getAllCourses, getCourseById, addCourse, updateCourseById, deleteCourseById } = require('../controllers/courses')
+
+const { getAllCourses, getCourseById, addCourse, updateCourseById, deleteCourseById, tryCatch } = require('../controllers/courses')
 
 const courseRouter = Router()
 

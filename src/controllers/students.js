@@ -1,6 +1,8 @@
 const StudentModel = require('../models/student')
 const CourseModel = require('../models/course')
 
+
+
 const getAllStudents = async (req, res) => {
     //db.students.find() exec()告诉mongoose，query已经build结束了, async await不一定永远成对出现，但如果出现await，那么一定要加async
     const students = await StudentModel.find().exec()
