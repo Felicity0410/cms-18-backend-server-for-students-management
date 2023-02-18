@@ -9,7 +9,8 @@
     "poststart": "pm2 log CMS18",
     "stop": "pm2 stop CMS18",
     "dev": "nodemon src/index.js",
-    "debug": "nodemon --inspect src/index.js"
+    "debug": "nodemon --inspect src/index.js",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -27,6 +28,7 @@
     "pm2": "^5.2.2"
   },
   "devDependencies": {
+    "jest": "^29.4.3",
     "nodemon": "^2.0.20"
   }
 }
