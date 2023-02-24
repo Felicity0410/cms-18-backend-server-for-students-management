@@ -4,6 +4,7 @@ const Joi = require('joi')
 const schema = new Schema({
     firstName: {
         type: String,
+        minLength: 2,
         required: true,
     },
     lastName: {
