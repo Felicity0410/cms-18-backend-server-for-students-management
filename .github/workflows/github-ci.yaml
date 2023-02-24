@@ -1,5 +1,8 @@
 name: "cms"
 
+env:
+  JWT_KEY: secret
+
 on:
   push:
     branches: [master]
