@@ -1,6 +1,6 @@
 
 
-const sum = (a, b) => a - b
+const sum = (a, b) => a + b
 
 describe('sum function', () => {
     it('should return correct sum of two numbers', () => {
